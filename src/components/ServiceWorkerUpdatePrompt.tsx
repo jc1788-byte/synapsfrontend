@@ -5,7 +5,10 @@ export function ServiceWorkerUpdatePrompt() {
   const [activateUpdate, setActivateUpdate] = useState<(() => void) | null>(null);
   const [activating, setActivating] = useState(false);
 
-  useEffect(() => registerAppServiceWorker(setActivateUpdate), []);
+  useEffect(
+    () => registerAppServiceWorker((activate) => setActivateUpdate(() => activate)),
+    [],
+  );
 
   const applyUpdate = useCallback(() => {
     if (!activateUpdate) return;
